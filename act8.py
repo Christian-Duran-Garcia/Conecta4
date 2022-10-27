@@ -1,17 +1,26 @@
+"""
+Christian Durán García - A01654229
+Adrian Garcia - A01721043
+Diego Bugarin - A01620485
+"""
+# Importar Librerías
 from random import *
 from turtle import *
 from freegames import path
 
-car = path('car.gif')
-tiles = list(range(32)) * 2
-state = {'mark': None}
-hide = [True] * 64
-counter = 0
-colors = ['red', 'yellow', 'green', 'blue', 'cyan']
-rd_color = 'black'
+# Declarar los objetos para el juego
+car = path('car.gif') # Imagen de fondo
+tiles = list(range(32)) * 2 # Cuadros que ocultan la imagen
+state = {'mark': None} # Estado de los cuadros
+hide = [True] * 64 # Estado de descubierto u oculto de los cuadros
+counter = 0 # Contador para el número de los taps
 
+# Agregar colores a los números para incrementar la dificultad
+colors = ['red', 'yellow', 'green', 'blue', 'cyan']
+rd_color = 'black' # El primer número empieza en negro
+
+# Función para dibujar los cuadrados blancos que cubren la imagen
 def square(x, y):
-    "Draw white square with black outline at (x, y)."
     up()
     goto(x, y)
     down()
@@ -22,18 +31,20 @@ def square(x, y):
         left(90)
     end_fill()
 
+# Función para calcular las coordenadas del índice de los tiles
 def index(x, y):
-    "Convert (x, y) coordinates to tiles index."
     return int((x + 200) // 50 + ((y + 200) // 50) * 8)
 
+# Función para conseguir la posición de los tiles
 def xy(count):
-    "Convert tiles count to (x, y) coordinates."
     return (count % 8) * 50 - 200, (count // 8) * 50 - 200
 
+# Función para realizar acciones cada vez que el usuario hace un tap
 def tap(x, y):
-    "Update mark and hidden tiles based on tap."
     spot = index(x, y)
     mark = state['mark']
+    
+    # Se llaman las variables globales para poder utilizarlas y modificarlas
     global counter
     global rd_color
 
@@ -44,9 +55,11 @@ def tap(x, y):
         hide[mark] = False
         state['mark'] = None
 
+    # Actualización de variables globales
     counter += 1
     rd_color = sample(colors, 1)[0]
 
+# Función que dibuja el estado del tablero dependiendo de la condición de los tiles
 def draw(rand_color):
     "Draw image and tiles."
     clear()
@@ -69,7 +82,7 @@ def draw(rand_color):
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        color(rand_color)
+        color(rand_color) # Obtener un color random
         if tiles[mark] < 10:
             goto(x + 17, y) # Posicion centrada para numeros de un solo digito
             write(tiles[mark], font=('Arial', 30, 'normal'))
@@ -91,11 +104,26 @@ def draw(rand_color):
     update()
     ontimer(draw(rd_color), 100)
 
+# Mezclar las tiles para que sean distintas cada corrida del juego
 shuffle(tiles)
+
+# Incremento del tamaño de la pantalla para mostrar el contador
 setup(600, 600, 370, 0)
+
+# Agregar la figura del coche
 addshape(car)
+
+# Ocultar la tortuga
 hideturtle()
+
+# Eliminar la animación de la tortuga
 tracer(False)
+
+# Ejecutar la función de tap al momento de que el usuario da un click en la pantalla
 onscreenclick(tap)
+
+# Ejecutar función de dibujar con un color random para el índice de los tiles
 draw(rd_color)
+
+# Terminar el ciclo de la tortuga
 done()
