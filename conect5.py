@@ -37,7 +37,7 @@ def get_next_open_row(board, col):
             return r
     pass
 
-# Funcion para imprimir el tablero de manera correcta
+# Funcion para imprimir el tablero a terminal de manera correcta
 def print_board(board):
     print(np.flip(board, 0))
 
@@ -67,6 +67,7 @@ def winning_move(board, piece):
             if board[r][c] == piece and board[r-1][c+1] == piece and board[r-2][c+2] == piece and board[r-3][c+3] == piece and board[r-4][c+4] == piece:
                 return True
 
+# Funcion para dibujar el tablero en la ventana grafica
 def draw_board(board):
     # Iterar por todo el tablero para hacer un set up del juego
     for c in range(COL_COUNT):
@@ -85,7 +86,7 @@ def draw_board(board):
     pygame.display.update()
 
 
-# Creando tablero de conecta 4
+# Creando tablero de conecta 5
 board = create_board()
 # print_board(board) # Imprimir el tablero en la consola
 game_over = False
@@ -166,7 +167,7 @@ while not game_over:
                         game_over = True
 
             # Desplegar el tablero tanto en consola como en la ventana
-            print_board(board)
+            # print_board(board)
             draw_board(board)
             
             # Alternan entre turnos 1 y 2
