@@ -55,9 +55,9 @@ def move():
 
     draw()
 
-    # for target in targets:
-    #    if not inside(target):
-    #        return
+    for target in targets:
+      if not inside(target):
+        targets.remove(target)
 
     ontimer(move, 50)
 
