@@ -16,6 +16,8 @@ BLUE = (0, 0, 255)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
+SQUARESIZE = 90
+RADIUS = int(SQUARESIZE/2 - 5)
 
 # Funcion para crear una matriz que representa el tablero
 def create_board():
@@ -35,7 +37,6 @@ def get_next_open_row(board, col):
     for r in range(ROW_COUNT):
         if board[r][col] == 0:
             return r
-    pass
 
 # Funcion para imprimir el tablero a terminal de manera correcta
 def print_board(board):
@@ -96,11 +97,9 @@ turn = 0 # Variable para identificar el jugador
 pygame.init()
 
 # Determinando tamaño del display y medidas para las figuras a dibujar
-SQUARESIZE = 90
 width = COL_COUNT * SQUARESIZE
 height = (ROW_COUNT + 1) * SQUARESIZE
 size = (width, height)
-RADIUS = int(SQUARESIZE/2 - 5)
 screen = pygame.display.set_mode(size)
 
 # Dibujar el tablero y refrescar la pantalla
